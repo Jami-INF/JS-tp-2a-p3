@@ -54,7 +54,10 @@ function ajoutArticle(){
         let text = document.createTextNode(e);
         error.setAttribute('style','color:'+rouge);
         error.appendChild(text);
-        document.querySelector('#addNewsForm').appendChild(error);
+
+        let parentDiv = document.querySelector('#titleNews').parentNode
+        let sp2 = document.querySelector('#titleNews')
+        parentDiv.insertBefore(error, sp2)
         logMessage(e);
     }
 }
