@@ -1,7 +1,7 @@
     $.ajax({
-        url: "text.JSON",
-        //url: "https://newsdata.io/api/1/news?apikey=pub_4627365ed0e1d1c0536016b89a969e1275ef&language=fr&category=technology",
-        //Le site ne fonctionnant plus, j'ai simplement sauvegardé sont contenu dans un fichier JSON, le fonctionnement est le même
+        //url: "text.JSON",
+        url: "https://newsdata.io/api/1/news?apikey=pub_4627365ed0e1d1c0536016b89a969e1275ef&language=fr&category=technology",
+        //Si le site ne fonctionnant plus, j'ai simplement sauvegardé sont contenu dans un fichier JSON, le fonctionnement est le même
         method: "GET"
     })
     .done(function(data, textStatus, xhr) {
