@@ -21,21 +21,24 @@ function buttonArticleNb(){
     return nbelements;
 }
 */
+
 function bindButton(button) {
     button.onclick = function(event) {
         event.preventDefault();
-        let title = $('input[name="titleToAdd"]')[0];
-        let description = $('textarea[name="descriptionToAdd"]')[0];
-        let idelm = buttonArticleNb()+1;
+        let title = $('input[name="titleToAdd"]');
+        let description = $('textarea[name="descriptionToAdd"]');
+
+        let id = buttonArticleNb()+1;
+
         try {
-            let article = new Article(idelm, title.value, description.value);
+            let article = new Article(id, title.val(), description.val());
             if (article.insertArticleHtml()) {
-                title.value = '';
-                description.value = '';
+                title.val('');
+                description.val('');
             }
         } catch (e) {
             clearErrors();
-            let form = $('#addNewsForm')[0];
+            let form = $('#addNewsForm');
 
             if (e instanceof RequiredPropertyError || e instanceof DuplicateArticleError) {
                 addError(e.message, form);
@@ -50,21 +53,16 @@ function bindButton(button) {
 }
 
 
-function clearErrors() {
-    let errors = $('.error');
 
-    if (errors) {
-        while (errors.length > 0 && errors[0].parentNode != null) {
-            errors[0].parentNode.removeChild(errors[0]);
-        }
-    }
+function clearErrors() {
+    $('.error').remove();
 }
 
 function addError(message, parent) {
-    let error = $('p')[0];
-    error.html(error);
-    error.style.color = ROUGE;
-    error.classList.add('error');
+    let error = $('<p></p>');
+    error.html(message);
+    error.css('color', ROUGE);
+    error.addClass('error');
 
     parent.prepend(error);
 }
