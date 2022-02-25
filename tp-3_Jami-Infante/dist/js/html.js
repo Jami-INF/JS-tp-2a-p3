@@ -21,7 +21,6 @@ function buttonArticleNb(){
     return nbelements;
 }
 */
-
 function bindButton(button) {
     button.onclick = function(event) {
         event.preventDefault();
@@ -52,6 +51,35 @@ function bindButton(button) {
     };
 }
 
+function bindButton(button) {
+    button.onclick = function(event) {
+        event.preventDefault();
+        let title = $('input[name="titleToAdd"]');
+        let description = $('textarea[name="descriptionToAdd"]');
+
+        let id = buttonArticleNb()+1;
+
+        try {
+            let article = new Article(id, title.val(), description.val());
+            if (article.insertArticleHtml()) {
+                title.val('');
+                description.val('');
+            }
+        } catch (e) {
+            clearErrors();
+            let form = $('#addNewsForm');
+
+            if (e instanceof RequiredPropertyError || e instanceof DuplicateArticleError) {
+                addError(e.message, form);
+            } else {
+                addError('Une erreur inconnue est survenue !', form);
+                console.error(e);
+            }
+        }
+
+        return false;
+    };
+}
 
 
 function clearErrors() {

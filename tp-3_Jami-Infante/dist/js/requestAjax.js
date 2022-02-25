@@ -11,7 +11,7 @@
         
 
         data.results.forEach(function(article)  {
-            let a = new Article("0", article.title, article.description);
+            let a = new Article(buttonArticleNb()+1, article.title, article.description);
             //console.log(article);
             a.insertArticleHtml();
         });
