@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <script src="https://unpkg.com/vue@3"></script>
+</head>
+
+<body>
+    <h1 class="title">{{title}}</h1>
+
+    <section id="news">
+        <h2 id="titleNews" class="text-center">
+            {{ getNbArticles }} article(s)
+        </h2>
+        <article v-for="article in articles">
+            <h3 class="title">{{article.title}}</h3>
+            <button @click="viewDetailArticle(article)">View Details</button>
+        </article>
+    </section>
+
+    <section id="click">
+        <button @click="increment">
+            {{ counter }} click
+        </button>
+        <button @click="decrement">
+            {{ counter }} click
+        </button>
+    </section>
+</body>
+<script src = "../dist/js/const.js"></script>
+<script src="../dist/js/main.js"></script>
+
+</html>
