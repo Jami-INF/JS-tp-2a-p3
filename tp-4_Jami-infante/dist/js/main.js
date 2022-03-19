@@ -1,3 +1,4 @@
+import ArticlesNews from '/view/components/ArticlesNews.js';
 Vue.createApp({
     data() {
         return {
@@ -6,14 +7,15 @@ Vue.createApp({
     }
 }).mount('h1');
 
+
 Vue.createApp({
     data() {
         return {
             articles: this.getArticles(),
-
             errorMessage: null,
             errorMessageColor: null,
-            descriptionToAdd: null
+            descriptionToAdd: null,
+            titleToAdd: TITLEPLACEHOLDER
         }
     },
     computed: {
@@ -32,26 +34,14 @@ Vue.createApp({
         getArticles() {
             return ALLNEWSJSON;
         },
-        viewDetailArticle(article) {
-            console.log(article.description);
-        },
-        deleteArticle(article) {
-            this.articles.pop(article);
-            this.errorMessageColor = 'green';
-            this.errorMessage = 'Article supprimé avec succès';
-        },
-        //autre syntaxe pour déclarer une fonction
         addArticle: function(event) {
-            //console.log(this.titleToAdd);
-            //console.log(this.descriptionToAdd);
-
+            event.preventDefault();
             this.errorMessage = null;
 
             if (this.titleToAdd && this.titleToAdd !== '') {
                 if(this.descriptionToAdd && this.descriptionToAdd !== '') {
-                    //console.log(this.titleToAdd);
-                    //console.log(this.descriptionToAdd);
-                    this.articles.push({ title: this.titleToAdd, description: this.descriptionToAdd });
+                    let article = new Article(this.getNbArticles+1,this.titleToAdd, this.descriptionToAdd);
+                    this.articles.push(article);
                     this.titleToAdd = null;
                     this.descriptionToAdd = null;
                     this.errorMessageColor = 'green';
@@ -63,26 +53,7 @@ Vue.createApp({
             } else {
                 this.errorMessageColor = 'red';
                 this.errorMessage = 'Le titre doit être renseigné';
-            }
-            //console.log(this.articles);
-            event.preventDefault();
+            }            
         }
     }
-}).mount('#news');
-
-Vue.createApp({
-    data() {
-        return {
-            counter: 1
-        }
-    },
-    methods: {
-        increment() {
-            this.counter++;
-        },
-        decrement() {
-            if (this.counter > 0)
-                this.counter--;
-        }
-    }
-}).mount('#click');
+}).component('ArticlesNews', ArticlesNews).mount('#app');
